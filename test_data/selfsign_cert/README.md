@@ -68,3 +68,17 @@ openssl verify \
     -CAfile root.pem \
     -untrusted intermediate.pem \
     leaf.pem
+
+
+# Sign image
+cosign import-key-pair --key leaf.key
+Enter password for private key:
+Enter password for private key again:
+Private key written to import-cosign.key
+Public key written to import-cosign.pub
+
+cosign sign \
+  --key leaf.key \
+  --certificate leaf.pem \
+  --certificate-chain intermediate.pem root.pem \
+  ghcr.io/viccuad/test-verify-image-signatures:signed
